@@ -53,13 +53,18 @@ public class Main {
 				case 5:
 					scan.close();
 					System.exit(0);
+				default:
+					System.out.println("Invalid Operation");
+					break;
 				}
 			}
 
 		} catch (InputMismatchException e) {
 			System.out.println("You have given an incorrect input. Please enter a valid number");
+			main(args);
 		} catch (IOException e) {
 			System.out.println("The File is unreachable");
+			main(args);
 		}
 	}
 

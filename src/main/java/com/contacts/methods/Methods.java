@@ -4,9 +4,17 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.charset.Charset;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.Iterator;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import com.contacts.contact.Contact;
+import com.contacts.sort.SortByName;
 
 public class Methods {
 
@@ -21,53 +29,57 @@ public class Methods {
 	}
 
 	public static void sort() throws IOException {
-		FileReader fr = new FileReader(file);
+		FileReader fr = new FileReader(file); 
 		char[] target = new char[(int) file.length()];
-		String appendString = new String();
 		fr.read(target);
 		fr.close();
+		String s = new String();
 		String str = new String(target);
-		String[] arr = str.split(";");
-		Arrays.sort(arr);
-		for (String s : arr)
-			if (appendString.isEmpty())
-				appendString = s + ";";
-			else
-				appendString += s + ";";
+		String[] array = str.split("\n");
+		List<String> list = Arrays.asList(array);
+		Collections.sort(list,new SortByName());
+		Iterator<String> i = list.listIterator();
 		FileWriter fw = new FileWriter(file);
-		fw.write(appendString);
+		while(i.hasNext())
+		{
+			s+=i.next() + "\n";
+		}
+		fw.write(s);
 		fw.close();
+//		Files.write(Paths.get(file.getName()), list, Charset.defaultCharset());
 	}
 
 	public static void view() throws IOException {
 		FileReader fr = new FileReader(file);
-		char[] target = new char[(int) file.length()];
-		fr.read(target);
-		fr.close();
-		String str = new String(target);
-		String[] arr = str.split(";");
-		for (String s : arr)
-			System.out.println(s);
+		if(file.length()==0)
+			System.out.println("There are no contacts to display");
+		else {
+			char[] target = new char[(int) file.length()];
+			fr.read(target);
+			fr.close();
+			String str = new String(target);
+			String[] arr = str.split("\n");
+			for (String s : arr)
+				System.out.println(s);
+		}
 	}
+
+
 
 	public static void search(String key) throws IOException {
 		// TODO Auto-generated method stub
 		FileReader fr = new FileReader(file);
-		int count = 0;
 		char[] target = new char[(int) file.length()];
 		fr.read(target);
 		fr.close();
 		String str = new String(target);
-		String[] arr = str.split(";");
-		for (String s : arr)
-			if (s.contains(key)) // Tried using Binary search.But only one match is returned
-			{
-				System.out.println(s);
-				count++;
-			}
-
-		if (count == 0)
-			System.out.println("No matching contact");
+		List<String> list = Arrays.asList(str.split("\n"));
+		List<String> oplist = list.parallelStream().filter(s -> s.trim().contains(key))
+				.collect(Collectors.toList());
+		for(String s: oplist)
+			System.out.println(s);
+		if(oplist.isEmpty())
+			System.out.println("No match found");
 	}
 
 	public static void export(int fileNumber) throws IOException {

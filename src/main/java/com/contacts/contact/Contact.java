@@ -1,6 +1,8 @@
 package com.contacts.contact;
 
 
+import java.util.Comparator;
+
 import com.google.i18n.phonenumbers.PhoneNumberUtil;
 import com.google.i18n.phonenumbers.PhoneNumberUtil.PhoneNumberFormat;
 import com.google.i18n.phonenumbers.Phonenumber.PhoneNumber;
@@ -45,7 +47,20 @@ public class Contact {
 
 	@Override
 	public String toString() {
-		return name + "," + email + "," + number + ";";
+		return name + "-" + email + "-" + number + "\n" ;
 	}
 
+}
+
+
+class SortByName implements Comparator<String>{
+
+
+	@Override
+	public int compare(String a, String b) {
+		// TODO Auto-generated method stub
+		return a.compareTo(b);
+		
+	}
+	
 }
