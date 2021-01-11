@@ -6,7 +6,7 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 import com.contacts.contact.Contact;
-import com.contacts.methods.Methods;
+import com.contacts.methods.Utilities;
 
 public class Main {
 
@@ -34,25 +34,27 @@ public class Main {
 					countryCode = scan.nextInt();
 					System.out.println("Enter the contact Number:");
 					c.setNumber(scan.nextLong(), countryCode);
-					Methods.write(c);
+					Utilities.write(c);
 					System.out.println("The Contact has been added successfully");
 					break;
 				case 2:
-					Methods.view();
+					Utilities.view();
 					break;
 				case 3:
 					System.out.println("Enter the name/email or number to search");
 					String key = scan.next();
-					Methods.search(key);
+					Utilities.search(key);
 					break;
 				case 4:
-					Methods.export(fileNumber);
+					Utilities.export(fileNumber);
 					fileNumber++;
-					System.out.println(fileNumber);
 					break;
 				case 5:
 					scan.close();
 					System.exit(0);
+				case 6:
+					Utilities.sort();
+					break;
 				default:
 					System.out.println("Invalid Operation");
 					break;

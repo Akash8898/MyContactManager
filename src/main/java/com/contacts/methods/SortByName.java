@@ -1,4 +1,4 @@
-package com.contacts.sort;
+package com.contacts.methods;
 
 import java.util.Comparator;
 
