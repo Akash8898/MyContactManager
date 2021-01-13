@@ -1,12 +1,14 @@
 package com.contacts.main;
 
+import static com.contacts.utilities.Utils.*;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
 import com.contacts.contact.Contact;
-import com.contacts.methods.Utilities;
+import com.contacts.utilities.Utils;
 
 public class Main {
 
@@ -33,27 +35,28 @@ public class Main {
 					System.out.println("Enter the country code:");
 					countryCode = scan.nextInt();
 					System.out.println("Enter the contact Number:");
-					c.setNumber(scan.nextLong(), countryCode);
-					Utilities.write(c);
-					System.out.println("The Contact has been added successfully");
+					String res = Utils.formatNumber(scan.nextLong(), countryCode);
+					c.setNumber(res);
+					System.out.println(res);
+					write(c);
 					break;
 				case 2:
-					Utilities.view();
+					view();
 					break;
 				case 3:
 					System.out.println("Enter the name/email or number to search");
 					String key = scan.next();
-					Utilities.search(key);
+					search(key);
 					break;
 				case 4:
-					Utilities.export(fileNumber);
+					export(fileNumber);
 					fileNumber++;
 					break;
 				case 5:
 					scan.close();
 					System.exit(0);
 				case 6:
-					Utilities.sort();
+					sort();
 					break;
 				default:
 					System.out.println("Invalid Operation");
