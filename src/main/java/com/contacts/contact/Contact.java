@@ -1,22 +1,8 @@
 package com.contacts.contact;
 
-import java.util.Comparator;
-
 public class Contact {
 
 	public String name, email, number;
-
-	public Contact() {
-
-	}
-
-	public Contact(String name, String email, String number) {
-
-		this.name = name;
-		this.email = email;
-		this.number = number;
-
-	}
 
 	public String getName() {
 		return name;
@@ -45,17 +31,6 @@ public class Contact {
 	@Override
 	public String toString() {
 		return name + "-" + email + "-" + number + "\n";
-	}
-
-}
-
-class SortByName implements Comparator<String> {
-
-	@Override
-	public int compare(String a, String b) {
-		// TODO Auto-generated method stub
-		return a.compareTo(b);
-
 	}
 
 }
