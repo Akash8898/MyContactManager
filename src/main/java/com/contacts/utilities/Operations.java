@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Scanner;
 
 import com.contacts.View.Contact;
+import com.contacts.interfaces.Utilities;
 
 public class Operations {
 
@@ -26,23 +27,23 @@ public class Operations {
 					createNewContact(utils, scan);
 					break;
 				case "2":
-					utils.fileView();
+					utils.view();
 					break;
 				case "3":
 					System.out.println("Enter the name/email or number to search");
 					String key = scan.next();
-					List<String> list = utils.fileSearch(key);
+					List<String> list = utils.search(key);
 					if (!list.isEmpty())
 						list.forEach(System.out::println);
 
 					break;
 				case "4":
-					utils.fileExport(fileNumber);
+					utils.export(fileNumber);
 					fileNumber++;
 					break;
 				case "5":
 					System.out.println("Enter the name/email of number of the contact to be deleted:");
-					utils.fileDelete(utils.fileSearch(scan.next()));
+					utils.delete(utils.search(scan.next()));
 					break;
 				case "6":
 					scan.close();
@@ -76,7 +77,7 @@ public class Operations {
 		String res = utils.formatNumber(scan.nextLong(), countryCode);
 		c.setNumber(res);
 		System.out.println(res);
-		utils.fileWrite(c);
+		utils.write(c);
 	}
 
 }

@@ -15,8 +15,8 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 
+import com.contacts.interfaces.Utilities;
 import com.contacts.utilities.Operations;
-import com.contacts.utilities.Utilities;
 
 @RunWith(MockitoJUnitRunner.class)
 public class TestOperations {

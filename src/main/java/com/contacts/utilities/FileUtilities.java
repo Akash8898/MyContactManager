@@ -1,5 +1,6 @@
 package com.contacts.utilities;
 
+import com.contacts.interfaces.Utilities;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -17,9 +18,6 @@ import java.util.stream.Collectors;
 import org.apache.commons.validator.routines.EmailValidator;
 
 import com.contacts.View.Contact;
-import com.google.i18n.phonenumbers.PhoneNumberUtil;
-import com.google.i18n.phonenumbers.PhoneNumberUtil.PhoneNumberFormat;
-import com.google.i18n.phonenumbers.Phonenumber.PhoneNumber;
 
 public class FileUtilities implements Utilities {
 
@@ -27,7 +25,7 @@ public class FileUtilities implements Utilities {
 	public Path path = Paths.get("PhoneBook.txt");
 
 	@Override
-	public void fileWrite(Contact contact) throws IOException {
+	public void write(Contact contact) throws IOException {
 		if (!EmailValidator.getInstance().isValid(contact.getEmail()))
 			System.out.println("Not a valid email. Please try again later");
 		else {
@@ -42,22 +40,7 @@ public class FileUtilities implements Utilities {
 	}
 
 	@Override
-	public String formatNumber(long number, int code) {
-
-		PhoneNumber num = new PhoneNumber();
-		PhoneNumberUtil util = PhoneNumberUtil.getInstance();
-		num.setCountryCode(code);
-		num.setNationalNumber(number);
-		String str = new String();
-		if (!util.isValidNumber(num))
-			return "Invalid Phone Number";
-		str = util.format(num, PhoneNumberFormat.INTERNATIONAL);
-		return str.toLowerCase();
-
-	}
-
-	@Override
-	public void fileView() throws IOException {
+	public void view() throws IOException {
 		if (file.length() == 0)
 			System.out.println("There are no contacts to display");
 		else {
@@ -68,7 +51,7 @@ public class FileUtilities implements Utilities {
 	}
 
 	@Override
-	public List<String> fileSearch(String key) throws IOException {
+	public List<String> search(String key) throws IOException {
 		FileUtilities utils = new FileUtilities();
 		List<String> list = Files.readAllLines(utils.path);
 		List<String> oplist = list.parallelStream().filter(s -> s.trim().contains(key)).collect(Collectors.toList());
@@ -79,7 +62,7 @@ public class FileUtilities implements Utilities {
 	}
 
 	@Override
-	public void fileExport(int fileNumber) throws IOException {
+	public void export(int fileNumber) throws IOException {
 		File exportFile = new File("Contacts" + fileNumber + ".txt");
 		exportFile.createNewFile();
 		fileNumber++;
@@ -91,7 +74,7 @@ public class FileUtilities implements Utilities {
 	}
 
 	@Override
-	public void fileDelete(List<String> list) {
+	public void delete(List<String> list) {
 		if (!list.isEmpty()) {
 			Scanner scan = new Scanner(System.in);
 			int i = 0;

@@ -22,8 +22,8 @@ import org.mockito.Spy;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import com.contacts.View.Contact;
+import com.contacts.interfaces.Utilities;
 import com.contacts.utilities.FileUtilities;
-import com.contacts.utilities.Utilities;
 
 @RunWith(MockitoJUnitRunner.Silent.class)
 public class TestUtilities {

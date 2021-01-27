@@ -2,13 +2,9 @@ package com.contacts.Controller;
 
 import java.io.IOException;
 
-import java.util.List;
-import java.util.Scanner;
-
-import com.contacts.View.Contact;
+import com.contacts.interfaces.Utilities;
 import com.contacts.utilities.FileUtilities;
 import com.contacts.utilities.Operations;
-import com.contacts.utilities.Utilities;
 
 public class Main {
 
