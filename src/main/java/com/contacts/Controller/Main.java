@@ -1,11 +1,11 @@
-package com.contacts.main;
+package com.contacts.Controller;
 
 import java.io.IOException;
 
 import java.util.List;
 import java.util.Scanner;
 
-import com.contacts.contact.Contact;
+import com.contacts.View.Contact;
 import com.contacts.utilities.FileUtilities;
 import com.contacts.utilities.Operations;
 import com.contacts.utilities.Utilities;

@@ -5,7 +5,7 @@ import java.io.IOException;
 import org.junit.Test;
 import org.mockito.Mock;
 
-import com.contacts.main.Main;
+import com.contacts.Controller.Main;
 
 public class TestMain {
 	

@@ -3,7 +3,7 @@ package com.contacts.utilities;
 import java.io.IOException;
 import java.util.List;
 
-import com.contacts.contact.Contact;
+import com.contacts.View.Contact;
 
 public interface Utilities {
 
@@ -16,5 +16,6 @@ public interface Utilities {
 	List<String> fileSearch(String key) throws IOException;
 
 	void fileExport(int fileNumber) throws IOException;
-
+	
+	void fileDelete(List<String> list) throws IOException;
 }

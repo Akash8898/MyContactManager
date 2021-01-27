@@ -3,18 +3,25 @@ package com.contacts.testing;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.verify;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.charset.Charset;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.mockito.Spy;
 import org.mockito.junit.MockitoJUnitRunner;
 
-import com.contacts.contact.Contact;
+import com.contacts.View.Contact;
 import com.contacts.utilities.FileUtilities;
 import com.contacts.utilities.Utilities;
 
@@ -23,17 +30,20 @@ public class TestUtilities {
 
 	@Mock
 	private Contact contact;
-	
-	@Mock
-	private File file;
 
-//	@InjectMocks
-//	private FileUtilities util;
+	@Mock
+	List<String> oplist;
+
+	@Mock
+	private File file = Mockito.mock(File.class);
+
+	@InjectMocks
+	private FileUtilities util;
 
 	private Utilities utils;
 
 	@Before
-	public void setup() {
+	public void setup() throws IOException {
 		FileUtilities fileUtil = new FileUtilities();
 		utils = spy(fileUtil);
 	}
@@ -77,36 +87,38 @@ public class TestUtilities {
 	}
 
 	@Test
-	public void testSearchTrue() throws IOException {
-
-		utils.fileSearch("akash");
-
-	}
-
-	@Test
 	public void testEmptyView() throws IOException {
 
 //		when(util.file.length()).thenReturn(0l);
 //		utils.fileView();
-		
+		utils.fileExport(300);
+		File testfile = new File("PhoneBook.txt");
+		testfile.delete();
 		when(file.length()).thenReturn(0l);
 		utils.fileView();
-		
+		Files.write(Paths.get("PhoneBook.txt"),Files.readAllLines(Paths.get("Contacts300.txt")),Charset.defaultCharset());
 	}
 
 	@Test
 	public void testView() throws IOException {
 
-//		when(util.file.length()).thenReturn(5l);
-//		utils.fileView();
-		
-//		when(file.length()).thenReturn(5l);
+		when(file.length()).thenReturn(5l);
 		utils.fileView();
+		
+	}
+
+	@Test
+	public void testSearchTrue() throws IOException {
+
+		when(oplist.isEmpty()).thenReturn(false);
+		utils.fileSearch("akash");
+
 	}
 
 	@Test
 	public void testSearchFalse() throws IOException {
 
+		when(oplist.isEmpty()).thenReturn(true);
 		utils.fileSearch("9876543722214");
 
 	}
@@ -114,7 +126,10 @@ public class TestUtilities {
 	@Test
 	public void testExport() throws IOException {
 
+		File testFile = new File("Contacts25.txt");
 		utils.fileExport(25);
+		if (testFile.exists())
+			System.out.println("Pass");
 
 	}
 
